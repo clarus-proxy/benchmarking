@@ -1,0 +1,10 @@
+This machine generates traffic using tomahawk (tomahawk.sourceforge.net)
+
+Folder ~/pcap contains pcap files
+
+Script "generator" is started automatically at login as daemon by service "traffic-gen"
+
+so you can control this script via: sudo service traffic-gen start|stop|restart|start
+
+for example, to stop it:  sudo service traffic-gen stop
+

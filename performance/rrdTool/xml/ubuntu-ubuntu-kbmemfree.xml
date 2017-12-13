@@ -1,0 +1,11 @@
+<sar2rrd>
+	<title>Memory and Swap Utilization</title>
+	<vlabel>count</vlabel>
+	<rrdfile>./rrd/ubuntu-kbmemfree.rrd</rrdfile>
+	<imgfile>./img/ubuntu-kbmemfree.png</imgfile>
+	<deltasec>1</deltasec>
+	<width>400</width>
+	<height>200</height>
+	<logarithmic></logarithmic>
+	<defs>DEF:v0=./rrd/ubuntu-kbmemfree.rrd:kbmemfree:AVERAGE LINE1:v0#FF0000:kbmemfree DEF:v1=./rrd/ubuntu-kbmemfree.rrd:kbmemused:AVERAGE LINE1:v1#0000FF:kbmemused DEF:v2=./rrd/ubuntu-kbmemfree.rrd:prct_memused:AVERAGE LINE1:v2#00FFFF:prct_memused DEF:v3=./rrd/ubuntu-kbmemfree.rrd:kbbuffers:AVERAGE LINE1:v3#FF00FF:kbbuffers DEF:v4=./rrd/ubuntu-kbmemfree.rrd:kbcached:AVERAGE LINE1:v4#FFFF00:kbcached DEF:v5=./rrd/ubuntu-kbmemfree.rrd:kbcommit:AVERAGE LINE1:v5#00FF00:kbcommit DEF:v6=./rrd/ubuntu-kbmemfree.rrd:prct_commit:AVERAGE LINE1:v6#000000:prct_commit DEF:v7=./rrd/ubuntu-kbmemfree.rrd:kbactive:AVERAGE LINE1:v7#C0C0C0:kbactive DEF:v8=./rrd/ubuntu-kbmemfree.rrd:kbinact:AVERAGE LINE1:v8#FF8C00:kbinact DEF:v9=./rrd/ubuntu-kbmemfree.rrd:kbdirty:AVERAGE LINE1:v9#8FBC8F:kbdirty </defs>
+</sar2rrd>

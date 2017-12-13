@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# This script runs automatically at login
+# to stop it: sudo service traffic-gen stop
+# to restart: sudo service traffic-gen restart
+
+sleep 5
+
+#loop infinitely
+while true
+do
+	echo "play with scapy"
+	python ./script35.py	
+	sleep 5
+
+	echo "play proto.pcap"
+	#replay pcap file from eth0->eth1 with speed 0.1Mbps (see tomahawk -h)
+	/usr/local/bin/tomahawk -i ens2 -j ens3 -l 1 -n 1 -R 0.2 -f ./pcap/proto.pcap >> ./logs/tomahawk.log 2&>1
+
+	sleep 5
+done

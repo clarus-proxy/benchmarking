@@ -1,0 +1,11 @@
+<sar2rrd>
+	<title>I/O Transfer Rate</title>
+	<vlabel>count/s</vlabel>
+	<rrdfile>./rrd/ubuntu-tps.rrd</rrdfile>
+	<imgfile>./img/ubuntu-tps.png</imgfile>
+	<deltasec>1</deltasec>
+	<width>400</width>
+	<height>200</height>
+	<logarithmic></logarithmic>
+	<defs>DEF:v0=./rrd/ubuntu-tps.rrd:tps:AVERAGE LINE1:v0#FF0000:tps DEF:v1=./rrd/ubuntu-tps.rrd:rtps:AVERAGE LINE1:v1#0000FF:rtps DEF:v2=./rrd/ubuntu-tps.rrd:wtps:AVERAGE LINE1:v2#00FFFF:wtps DEF:v3=./rrd/ubuntu-tps.rrd:bread_s:AVERAGE LINE1:v3#FF00FF:bread_s DEF:v4=./rrd/ubuntu-tps.rrd:bwrtn_s:AVERAGE LINE1:v4#FFFF00:bwrtn_s </defs>
+</sar2rrd>

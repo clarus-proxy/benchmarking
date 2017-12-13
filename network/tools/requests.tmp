@@ -1,0 +1,10 @@
+SELECT * FROM discharge_simple WHERE pat_id='00000113';
+SELECT * FROM discharge_simple WHERE pat_name='JESUS' AND pat_last1='RUEDA' AND pat_last2='BRAVO';
+SELECT  DISTINCT  ON  (dis_id,  dis_ver)  *  FROM  discharge_advanced  WHERE pat_gen='M';
+SELECT  DISTINCT  ON  (dis_id,  dis_ver)  *  FROM  discharge_advanced  WHERE ep_range='01';
+SELECT  DISTINCT  ON  (dis_id,  dis_ver)  *  FROM  discharge_advanced  WHERE dis_serv='CAR';
+SELECT  DISTINCT  ON  (dis_id,  dis_ver)  *  FROM  discharge_advanced  WHERE dis_adm='2015/04/04/';
+SELECT  DISTINCT  ON  (dis_id,  dis_ver)  *  FROM  discharge_advanced  WHERE dis_dis='2015/10/13/'
+SELECT  DISTINCT  ON  (dis_id,  dis_ver)  *  FROM  discharge_advanced  WHERE dis_adtp='EN';
+SELECT  DISTINCT  ON  (dis_id,  dis_ver)  *  FROM  discharge_advanced  WHERE dis_dest='01';
+SELECT  DISTINCT  ON  (dis_id,  dis_ver)  *  FROM  discharge_advanced  WHERE dia_id='070.54';

@@ -1,0 +1,11 @@
+<sar2rrd>
+	<title>CPU Utilization all</title>
+	<vlabel>count</vlabel>
+	<rrdfile>./rrd/ubuntu-CPU-all.rrd</rrdfile>
+	<imgfile>./img/ubuntu-CPU-all.png</imgfile>
+	<deltasec>1</deltasec>
+	<width>400</width>
+	<height>200</height>
+	<logarithmic></logarithmic>
+	<defs>DEF:v0=RRDFILE:prct_user:AVERAGE LINE1:v0#FF0000:prct_user DEF:v1=RRDFILE:prct_nice:AVERAGE LINE1:v1#0000FF:prct_nice DEF:v2=RRDFILE:prct_system:AVERAGE LINE1:v2#00FFFF:prct_system DEF:v3=RRDFILE:prct_iowait:AVERAGE LINE1:v3#FF00FF:prct_iowait DEF:v4=RRDFILE:prct_steal:AVERAGE LINE1:v4#FFFF00:prct_steal DEF:v5=RRDFILE:prct_idle:AVERAGE LINE1:v5#00FF00:prct_idle </defs>
+</sar2rrd>
