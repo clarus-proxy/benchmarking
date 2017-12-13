@@ -1,0 +1,60 @@
+version: '2'
+services:
+  clarus1:
+    image: clarus/proxy
+    links:
+        - postgres
+    networks:
+        - back-tier
+    environment:
+        CLOUD_IP: "postgres"
+        CLOUD_PORT: "5432"
+        SECURITY_POLICY: "/etc/clarus/security-policy/searchable_encryption.xml"
+    volumes:
+        - ./clarus/securitypolicies:/etc/clarus/security-policy/:ro
+  clarus2:
+    image: clarus/proxy
+    links:
+        - postgres
+    networks:
+        - back-tier
+    environment:
+        CLOUD_IP: "postgres"
+        CLOUD_PORT: "5432"
+        SECURITY_POLICY: "/etc/clarus/security-policy/searchable_encryption.xml"
+    volumes:
+        - ./clarus/securitypolicies:/etc/clarus/security-policy/:ro
+  postgres:
+    image: postgres
+    restart: always
+    environment: 
+        POSTGRES_USER: "postgres"
+        POSTGRES_PASSWORD: "password"
+    networks:
+        - back-tier
+    ports:
+        - 1234:5432
+  lb:
+    image: library/haproxy
+    restart: always
+    ports:
+        - 5432:5432
+    links:
+        - clarus1
+        - clarus2
+    networks:
+        - front-tier
+        - back-tier
+    volumes:
+        - ./haproxy:/usr/local/etc/haproxy:ro
+networks:
+    front-tier:
+      driver: bridge
+      ipam:
+        config:
+            - subnet: 10.10.1.0/24
+    back-tier:
+      driver: bridge
+      ipam:
+        config:
+            - subnet: 10.10.2.0/24
