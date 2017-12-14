@@ -7,7 +7,7 @@ services:
         - front-tier
         - back-tier
     environment:
-        CLOUD_IP: "pgmaster"
+        CLOUD_IP: "pg-master"
         CLOUD_PORT: "5432"
         SECURITY_POLICY: "/etc/clarus/security-policy/patient_anonymisation.xml"
     volumes:
@@ -28,6 +28,8 @@ services:
         - 5433:5432
     networks:
         - back-tier
+    depends_on:
+        - clarus
 
   pg-slave:
     build: '.'
@@ -46,6 +48,8 @@ services:
      - 'pg-master'
     networks:
         - back-tier
+    depends_on:
+        - pg-master
 networks:
     front-tier: 
       driver: bridge
