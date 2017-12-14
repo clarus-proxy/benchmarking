@@ -1,0 +1,32 @@
+version: '2'
+services:
+  clarus:
+    image: clarus/proxy
+    links:
+        - postgres
+    networks:
+        - front-tier
+    environment:
+        CLOUD_IP: "postgres"
+        CLOUD_PORT: "5432"
+        SECURITY_POLICY: "/etc/clarus/security-policy/patient_anonymisation.xml"
+    volumes:
+        - ./clarus/securitypolicies:/etc/clarus/security-policy/:ro
+    ports:
+        - 5432:5432
+  postgres:
+    image: postgres
+    restart: always
+    environment: 
+        POSTGRES_USER: "postgres"
+        POSTGRES_PASSWORD: "password"
+    networks:
+        - front-tier
+    ports:
+        - 1234:5432
+networks:
+    front-tier:
+      driver: bridge
+      ipam:
+        config:
+            - subnet: 10.10.1.0/24
