@@ -2,7 +2,7 @@ version: '2'
 
 services:
   clarus:
-    image: clarus/proxy
+    image: clarus/proxy:1.2-snap-ok
     networks:
         - front-tier
         - back-tier
