@@ -9,7 +9,7 @@ services:
     environment:
         CLOUD_IP: "postgres"
         CLOUD_PORT: "5432"
-        SECURITY_POLICY: "/etc/clarus/security-policy/searchable_encryption.xml"
+        SECURITY_POLICY: "/etc/clarus/security-policy/patient_anonymisation.xml"
     volumes:
         - ./clarus/securitypolicies:/etc/clarus/security-policy/:ro
   clarus2:
@@ -21,7 +21,7 @@ services:
     environment:
         CLOUD_IP: "postgres"
         CLOUD_PORT: "5432"
-        SECURITY_POLICY: "/etc/clarus/security-policy/searchable_encryption.xml"
+        SECURITY_POLICY: "/etc/clarus/security-policy/patient_anonymisation.xml"
     volumes:
         - ./clarus/securitypolicies:/etc/clarus/security-policy/:ro
   postgres:
