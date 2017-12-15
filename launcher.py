@@ -52,7 +52,9 @@ sys.stdout = Logger(LOG_FILE)
 parser = argparse.ArgumentParser(
     description='Launch the benchmarks tests for CLARUS')
 parser.add_argument('target', type=str,
-                    help='Define the target host')
+                    help='Define the postgres target host')
+parser.add_argument('clarus', type=str,
+                    help='Define the proxy host')
 parser.add_argument('directory',
                     help='Define the directory containing the datasets')
 parser.add_argument('requirement',
@@ -66,11 +68,11 @@ parser.add_argument('-v', '--verbose', action="store_true",
 args = parser.parse_args()
 
 
-def init_db(encrypt=False, dataset_size="std"):
+def init_db(encrypt=False, dataset_size="std", target=args.target):
     db_name = "ehealth_{}".format(random.randint(1, 100))
     script_path = os.path.join(root_dir, 'pgsqlBenchmarks.sh')
     script_args = " {} {} {} {} {}".format(
-        args.target, args.directory, dataset_size, db_name, encrypt)
+        target, args.directory, dataset_size, db_name, encrypt)
     cmd = script_path + script_args
     if args.verbose:
         print("Command: {}".format(cmd))
@@ -83,10 +85,10 @@ def init_db(encrypt=False, dataset_size="std"):
     return db_name
 
 
-def cleaning_db(db_name):
+def cleaning_db(db_name, target=args.target):
     script_path = os.path.join(root_dir, 'cleaning_pgsqlBenchmarks.sh')
     script_args = " {} {} {} {}".format(
-        args.target, args.directory, "", db_name)
+        target, args.directory, "", db_name)
     cmd = script_path + script_args
     if args.verbose:
         print("Command: {}".format(cmd))
@@ -121,11 +123,11 @@ def worker_delivery_5():
     return False
 
 
-def worker_perf(encrypt=False, dataset_size="std"):
+def worker_perf(encrypt=False, dataset_size="std", target=args.target):
     db_name = "ehealth_{}".format(random.randint(1, 100))
     script_path = os.path.join(root_dir, 'pgsqlBenchmarks.sh')
     script_args = " {} {} {} {} {}".format(
-        args.target, args.directory, dataset_size, db_name, encrypt)
+        target, args.directory, dataset_size, db_name, encrypt)
     cmd = script_path + script_args
     if args.verbose:
         print("Command: {}".format(cmd))
@@ -143,12 +145,12 @@ def worker_perf(encrypt=False, dataset_size="std"):
     cmd = script_path + script_args
     if args.verbose:
         print("Command: {}".format(cmd))
-    # try:
-    #     output = subprocess.run(
-    #         cmd + " | gawk '{print strftime(\"[%Y-%m-%d %H:%M:%S]\"), $0; fflush();}' >> ./logs/ehealth.log", shell=True, check=True)
-    # except CalledProcessError:
-    #     print("An exception occured")
-    #     return False
+    try:
+        output = subprocess.run(
+            cmd + " | gawk '{print strftime(\"[%Y-%m-%d %H:%M:%S]\"), $0; fflush();}' >> ./logs/ehealth.log", shell=True, check=True)
+    except CalledProcessError:
+        print("An exception occured")
+        return False
     time.sleep(5)
 
     return True
@@ -161,9 +163,16 @@ def worker_perf_1():
 
 
 def worker_perf_2():
-    worker_perf(True, "std")
-    worker_perf(True, "large")
-    worker_perf(True, "xlarge")
+    start_time = time.time()
+    for dataset in datasets:
+        worker_perf(True, dataset)
+    time2compute = time.time() - start_time
+    print("Time to compute with naive encryption: {}".format(time2compute))
+    start_time = time.time()
+    for dataset in datasets:
+        worker_perf(dataset_size=dataset, target=args.clarus)
+    time2compute = time.time() - start_time
+    print("Time to compute with CLARUS: {}".format(time2compute))
 
     return True
 
@@ -176,7 +185,7 @@ def worker_perf_3():
             args.target, args.directory, dataset, my_db, False)
         cmd = script_path + script_args
         start_time = time.time()
-        if args.verbose == True:
+        if args.verbose is True:
             print(cmd)
         try:
             output = subprocess.run(
@@ -187,6 +196,24 @@ def worker_perf_3():
         time2compute = time.time() - start_time
         print("NO_SECURITY: {}s\tdataset size: {}".format(time2compute, dataset))
         cleaning_db(my_db)
+        time.sleep(5)
+        my_db = init_db(target=args.clarus)
+        script_path = os.path.join(root_dir, 'pgsqlBenchmarks_queries.sh')
+        script_args = " {} {} {} {} {}".format(
+            args.clarus, args.directory, dataset, my_db, False)
+        cmd = script_path + script_args
+        start_time = time.time()
+        if args.verbose is True:
+            print(cmd)
+        try:
+            output = subprocess.run(
+                cmd + " | gawk '{print strftime(\"[%Y-%m-%d %H:%M:%S]\"), $0; fflush();}' >> ./logs/ehealth.log", shell=True, check=True)
+        except subprocess.CalledProcessError as e:
+            print("An exception occured: {}".format(e.output))
+            return False
+        time2compute = time.time() - start_time
+        print("CLARUS: {}s\tdataset size: {}".format(time2compute, dataset))
+        cleaning_db(my_db, target=args.clarus)
         time.sleep(5)
         my_db = init_db(encrypt=True)
         script_path = os.path.join(root_dir, 'pgsqlBenchmarks_queries.sh')
@@ -204,7 +231,7 @@ def worker_perf_3():
             return False
 
         time2compute = time.time() - start_time
-        print("SECURITY: {}s\tdataset size: {}".format(time2compute, dataset))
+        print("NAIVE SECURITY: {}s\tdataset size: {}".format(time2compute, dataset))
         cleaning_db(my_db)
         time.sleep(5)
 
