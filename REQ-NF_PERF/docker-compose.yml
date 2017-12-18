@@ -24,6 +24,8 @@ services:
         - front-tier
     ports:
         - 1234:5432
+    volumes:
+        - ./pgdata:/var/lib/postgresql
 networks:
     front-tier:
       driver: bridge
