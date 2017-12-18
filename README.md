@@ -6,6 +6,11 @@
 * postgresql-client 
 * libcrypt-rijndael-perl
 * libcrypt-cbc-perl 
+* vmstat
+* sar (sysstat)
+* iostat (sysstat)
+* build-essential (for the cpan)
+* cpan
 * dos2unix
 * [git-lfs](https://github.com/git-lfs/git-lfs/wiki/Installation)
 
