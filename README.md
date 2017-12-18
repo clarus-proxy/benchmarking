@@ -2,6 +2,7 @@
 
 ## Requirements
 * python3
+* gawk
 * postgresql-client 
 * libcrypt-rijndael-perl
 * libcrypt-cbc-perl 
