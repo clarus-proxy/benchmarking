@@ -34,7 +34,7 @@ if [ $ENCRYPT == "True" ]; then
     # head dataSets/ehealth/std/eHealth_tableScheme.tpl > $DATASET_DIR/crypt/$DATASET_SIZE/eHealth_tableData.sql
     #psql -U postgres -h $IP -d $DB_NAME -f $DATASET_DIR/crypt/$DATASET_SIZE/eHealth_tableScheme.sql
     #psql -U postgres -h $IP -d $DB_NAME -f $DATASET_DIR/crypt/$DATASET_SIZE/eHealth_views.sql
-    cat $DATASET_DIR/$DATASET_SIZE/eHealth_tableData.tpl | nice -n 20 ./network/tools/encrypt_dataset.pl >> $DATASET_DIR/crypt/$DATASET_SIZE/eHealth_tableData.sql
+    cat $DATASET_DIR/$DATASET_SIZE/eHealth_tableData.sql | nice -n 20 ./network/tools/encrypt_dataset.pl >> $DATASET_DIR/crypt/$DATASET_SIZE/eHealth_tableData.sql
     # echo "COMMIT;" >> $DATASET_DIR/crypt/$DATASET_SIZE/eHealth_tableData.sql
     #cat $DATASET_DIR/crypt/$DATASET_SIZE/eHealth_tableData.sql | nice -n 20 ./network/tools/decrypt_dataset.pl > $DATASET_DIR/crypt/$DATASET_SIZE/eHealth_tableData_nocrypt.sql
     # dos2unix $DATASET_DIR/crypt/$DATASET_SIZE/eHealth_tableData.sql
