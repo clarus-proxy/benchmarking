@@ -31,13 +31,13 @@ export PGSSLMODE=disable
 export PGPASSWORD="password"
 psql -U postgres -h $IP -c "CREATE DATABASE $DB_NAME;"
 if [ $ENCRYPT == "True" ]; then
-    head dataSets/ehealth/std/eHealth_tableScheme.tpl > $DATASET_DIR/crypt/$DATASET_SIZE/eHealth_tableData.sql
+    # head dataSets/ehealth/std/eHealth_tableScheme.tpl > $DATASET_DIR/crypt/$DATASET_SIZE/eHealth_tableData.sql
     #psql -U postgres -h $IP -d $DB_NAME -f $DATASET_DIR/crypt/$DATASET_SIZE/eHealth_tableScheme.sql
     #psql -U postgres -h $IP -d $DB_NAME -f $DATASET_DIR/crypt/$DATASET_SIZE/eHealth_views.sql
     cat $DATASET_DIR/$DATASET_SIZE/eHealth_tableData.tpl | nice -n 20 ./network/tools/encrypt_dataset.pl >> $DATASET_DIR/crypt/$DATASET_SIZE/eHealth_tableData.sql
     # echo "COMMIT;" >> $DATASET_DIR/crypt/$DATASET_SIZE/eHealth_tableData.sql
     #cat $DATASET_DIR/crypt/$DATASET_SIZE/eHealth_tableData.sql | nice -n 20 ./network/tools/decrypt_dataset.pl > $DATASET_DIR/crypt/$DATASET_SIZE/eHealth_tableData_nocrypt.sql
-    dos2unix $DATASET_DIR/crypt/$DATASET_SIZE/eHealth_tableData.sql
+    # dos2unix $DATASET_DIR/crypt/$DATASET_SIZE/eHealth_tableData.sql
     #storing into postgres
     echo "psql -U postgres -h $IP -d $DB_NAME -f $DATASET_DIR/crypt/$DATASET_SIZE/eHealth_tableData.sql"
     psql -U postgres -h $IP -d $DB_NAME -f $DATASET_DIR/crypt/$DATASET_SIZE/eHealth_tableData.sql
@@ -45,9 +45,9 @@ if [ $ENCRYPT == "True" ]; then
     rm -f $DATASET_DIR/crypt/$DATASET_SIZE/eHealth_tableData.sql
 
 else
-    cat dataSets/ehealth/std/eHealth_tableScheme.tpl > $DATASET_DIR/$DATASET_SIZE/eHealth_tableData.sql
-    cat dataSets/ehealth/$DATASET_SIZE/eHealth_tableData.tpl >> $DATASET_DIR/$DATASET_SIZE/eHealth_tableData.sql
-    dos2unix $DATASET_DIR/$DATASET_SIZE/eHealth_tableData.sql
+    # cat dataSets/ehealth/std/eHealth_tableScheme.tpl > $DATASET_DIR/$DATASET_SIZE/eHealth_tableData.sql
+    # cat dataSets/ehealth/$DATASET_SIZE/eHealth_tableData.tpl >> $DATASET_DIR/$DATASET_SIZE/eHealth_tableData.sql
+    # dos2unix $DATASET_DIR/$DATASET_SIZE/eHealth_tableData.sql
     # echo "COMMIT;" >> $DATASET_DIR/$DATASET_SIZE/eHealth_tableData.sql
     #sed -i -e "s/\<feff\>/ /g" $DATASET_DIR/$DATASET_SIZE/eHealth_tableData.sql
     #sed -i -e "s/^M//g" $DATASET_DIR/$DATASET_SIZE/eHealth_tableData.sql
