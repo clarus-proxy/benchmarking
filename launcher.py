@@ -157,7 +157,18 @@ def worker_perf(encrypt=False, dataset_size="std", target=args.target):
 
 
 def worker_perf_1():
-    worker_perf()
+    for dataset in datasets:
+        start_time = time.time()
+        worker_perf(False, dataset)
+        time2compute = time.time() - start_time
+        print("{}: Time to compute directly on postgres: {}".format(
+            dataset, time2compute))
+    for dataset in datasets:
+        start_time = time.time()
+        worker_perf(False, dataset_size=dataset, target=args.clarus)
+        time2compute = time.time() - start_time
+        print("{}: Time to compute with CLARUS: {}".format(
+            dataset, time2compute))
 
     return True
 
