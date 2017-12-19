@@ -24,3 +24,11 @@ TODO
 
 ### Scalability
 TODO
+
+## Draw Plots
+```bash
+mkdir results
+./performance/drawGraph.sh ./results/
+./performance/drawPlots.sh ./results/
+ls -la results/img
+````
