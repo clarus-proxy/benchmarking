@@ -178,12 +178,13 @@ def worker_perf_2():
         start_time = time.time()
         worker_perf(True, dataset)
         time2compute = time.time() - start_time
-        print("Time to compute with naive encryption: {}".format(time2compute))
+        print("{}: Time to compute with naive encryption: {}".format(
+            dataset, time2compute))
     for dataset in datasets:
         start_time = time.time()
         worker_perf(dataset_size=dataset, target=args.clarus)
         time2compute = time.time() - start_time
-        print("Time to compute with CLARUS: {}".format(time2compute))
+        print("{}: Time to compute with CLARUS: {}".format(dataset, time2compute))
 
     return True
 
