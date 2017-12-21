@@ -9,7 +9,7 @@ services:
     environment:
         CLOUD_IP: "pg-master"
         CLOUD_PORT: "5432"
-        SECURITY_POLICY: "/etc/clarus/security-policy/patient_anonymisation.xml"
+        SECURITY_POLICY: "/etc/clarus/security-policy/simple_encryption.xml"
     volumes:
         - ./clarus/securitypolicies:/etc/clarus/security-policy/:ro
     ports:
