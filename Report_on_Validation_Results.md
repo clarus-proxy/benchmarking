@@ -117,6 +117,21 @@ rferrari@NUC1261:~/git/CLARUS/benchmarks/scripts$ sudo ./performance/probe.sh; s
 #### Results
 This test shows that the CPU/RAM usage in the local approach is smaller than the using CLARUS because the CLARUS leverages the CPU and RAM of the CSP. Indeed, this is one of the advantages of the CLARUS approach that allows to benefit from the computation of CSP in order to consume less resources in the local devices. CPU, memory, IO and bandwidth usage are reported in the following graphs.
 
+|Local Security|CLARUS|
+|--|--|
+| ![Local Security - Standard dataset - CPU Usage](./report_img/local_standard_cpu.png) |![CLARUS Security - Standard dataset - CPU Usage](./report_img/clarus_standard_cpu.png) The CPU is almost not used. Only the systems process are using it|
+| ![Local Security - Standard dataset - I/O Usage](./report_img/local_standard_io.png) |![CLARUS Security - Standard dataset - I/O Usage](./report_img/clarus_standard_io.png) Here we can clearly see that the I/O of the system are not heavily loaded compare to the “Local security” test |
+| ![Local Security - Standard dataset - Memory Usage](./report_img/local_standard_memory.png) We have less free memory than when using CLARUS|![CLARUS Security - Standard dataset - Memory Usage](./report_img/clarus_standard_memory.png) Here with CLARUS we can see that the memory usage is stable. |
+| ![Local Security - Standard dataset - Bandwidth Usage](./report_img/local_standard_io.png) Huge bandwidth spike at the end of the encryption processing. |![CLARUS Security - Standard dataset - Bandwidth Usage](./report_img/clarus_standard_bandwidth.png) Standard spikes of bandwidth usage representing the different SQL requests |
+| ![Local Security - Large dataset - CPU Usage](./report_img/local_large_cpu.png) Here we can see the spikes while the system use heavily the CPU for a local encryption. |![CLARUS Security - Large dataset - CPU Usage](./report_img/clarus_large_cpu.png) No overload is noticed. |
+| ![Local Security - Large dataset - I/O Usage](./report_img/local_large_io.png)The disk I/O are heavily loaded due to the local encryption and read/write |![CLARUS Security - Large dataset - I/O Usage](./report_img/clarus_large_io.png) Access to the data only at the beginning of the process. Then the disk is left still. |
+| ![Local Security - Large dataset - Memory Usage](./report_img/local_large_memory.png) There is a lot less free memory than when we use CLARUS |![CLARUS Security - Large dataset - Memory Usage](./report_img/clarus_large_memory.png) |
+| ![Local Security - Large dataset - Bandwidth Usage](./report_img/local_large_io.png) |![CLARUS Security - Large dataset - Bandwidth Usage](./report_img/clarus_large_bandwidth.png) Using CLARUS the bandwidth is upon less load |
+| ![Local Security - XLarge dataset - CPU Usage](./report_img/local_xlarge_cpu.png) Here we can clearly see a jump to 25% usage of the CPU only for the user. This is related to the encryption of the extra-large dataset before the upload. |![CLARUS Security - Large dataset - CPU Usage](./report_img/clarus_xlarge_cpu.png) Standard usage of the CPU. No overload is noticeable. |
+| ![Local Security - XLarge dataset - I/O Usage](./report_img/local_xlarge_io.png) Here we can see that the I/O related to the processing of the extra-large dataset puts a heavy load on the local disk. |![CLARUS Security - XLarge dataset - I/O Usage](./report_img/clarus_xlarge_io.png) |
+| ![Local Security - XLarge dataset - Memory Usage](./report_img/local_xlarge_memory.png) |![CLARUS Security - XLarge dataset - Memory Usage](./report_img/clarus_xlarge_memory.png) Huge drop of the free memory since a lot of data are put in memory to be used by the PostreSQL client. |
+| ![Local Security - XLarge dataset - Bandwidth Usage](./report_img/local_xlarge_io.png) |![CLARUS Security - XLarge dataset - Bandwidth Usage](./report_img/clarus_large_bandwidth.png) |
+
 ### REQ-NF_PERF-1.4
 Description: Performance should be linear with respect to the size of the datasets
 **Validation**: *Test*
