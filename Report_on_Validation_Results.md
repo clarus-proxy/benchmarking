@@ -164,6 +164,13 @@ It was not possible to check the linearity for the storage and retrieval actions
 | CLARUS Data Splitting |3,1|6,4|9,3|
 | CLARUS Searchable encryption |2,9|6,0|8,9|
 
+
+![Storage Operation](./report_img/storage_operation.png)
+
+![Search Operation](./report_img/search_operation.png)
+
+As a conclusion to this graph we can state that the evolution of the global time to compute is linear compared to the size of the dataset when using CLARUS. Which is the result expected.
+
 # Lesson learned
 
 The main conclusion related to the evaluation of the CLARUS proxy demonstrated the complexity of such software that is intended to cover different protocols modules, data protection mechanisms and different types of data. This engendered multiple technical issues in the development part and caused some performance issues in the proxy itself.
