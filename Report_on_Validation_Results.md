@@ -26,7 +26,9 @@ To run this scenario, we will use the following scripts:
 
 #### Usage
 
-    rferrari@NUC1261$ ./launcher postgres clarus dataSets/ehealth/ REQ-NF_PERF-1.1
+```bash
+rferrari@NUC1261$ ./launcher postgres clarus dataSets/ehealth/ REQ-NF_PERF-1.1
+````
 
 #### Results
 The results are reported in this table. The values are in seconds. Notice that we performed each test 5 times and we stopped the test if the value is more than 1 day.
@@ -65,7 +67,7 @@ The overhead of using CLARUS data protection mechanism is very high for storage 
 
 ### REQ-NF_PERF-1.2
 Description: CLARUS should improve the performance of requests (e.g. search, operations) compared to naïve implementations of security-enabling solutions already available in some commercial products.
-Validation: Test
+**Validation**: *Test*
 This requirement describes the improvements made by CLARUS compared to existing security solutions. We need to monitor the improvement for a specific request in terms of overall time but also hardware requirements needed to use an end-user application. To evaluate the evolution of the complexity we also need to use multiple datasets with different size in order to validate that the complexity of the computation is linear.
 Two scenarios are compared: CLARUS proxy (with 3 different data protection modules) and the “naïve” implementation of the security technique (simple encryption) that needs to retrieve the whole data, decrypt it before performing any search. 
 We also report the following metrics:
@@ -81,8 +83,9 @@ To run this scenario, we will use the following scripts:
 * killProbe.sh
 
 #### Usage
-
-    rferrari@NUC1261:~/git/CLARUS/benchmarks/scripts$ sudo ./performance/probe.sh;./launcher postgres clarus dataSets/ehealth/ REQ-NF_PERF-1.2; sudo pkill probe.sh
+```bash
+rferrari@NUC1261:~/git/CLARUS/benchmarks/scripts$ sudo ./performance/probe.sh;./launcher postgres clarus dataSets/ehealth/ REQ-NF_PERF-1.2; sudo pkill probe.sh
+````
 
 #### Results
 The results are reported in this table. The values are in seconds. Notice that this search takes more time if we compared it with security-less scenario, but it highly improves the “naïve” scenario implementing simple encryption.
@@ -91,23 +94,25 @@ The results are reported in this table. The values are in seconds. Notice that t
 
 
 | Scenario  | Standard | Large | Xlarge |
-|--|--|--|--|--|
+|--|--|--|--|
 |Security-Less|2,0 |18,0|137,0|
 |Local Security|218,1|19 276,0|>1day|
-|Local Security|3,0|17,0|235,0|
-|Local Security|3,1|19,0|267,0|
-|Local Security|2,9|27,0|285,0|
+|CLARUS Anonymization|3,0|17,0|235,0|
+|CLARUS Data Splitting|3,1|19,0|267,0|
+|CLARUS Searchable Encryption|2,9|27,0|285,0|
 
 
 ### REQ-NF_PERF-1.3
 Description: CLARUS should improve the performance of requests (e.g. search, operations) compared to the same approach directly on the end user’s computer.
-Validation: Test
+**Validation**: *Test*
 CLARUS should improve the performance of requests (e.g. search, operations) compared to the same approach directly on the end user’s computer.
 This requirement describes the improvements made by CLARUS compared to the same approach with naïve security implementation. We monitor the improvement for a specific request in terms of overall CPU and memory usage needed to use an end-user application. To evaluate the evolution of the complexity we also need to use multiple datasets in order to validate that the complexity of the computation is linear.
 This test has been performed for search operation for the 3 types of datasets.
-####	Usage
 
-    rferrari@NUC1261:~/git/CLARUS/benchmarks/scripts$ sudo ./performance/probe.sh; sudo ./launcher postgres clarus dataSets/ehealth/ REQ-NF_PERF-1.3; sudo ./performance/killProbe.sh;
+####	Usage
+```bash
+rferrari@NUC1261:~/git/CLARUS/benchmarks/scripts$ sudo ./performance/probe.sh; sudo ./launcher postgres clarus dataSets/ehealth/ REQ-NF_PERF-1.3; sudo ./performance/killProbe.sh;
+````
 
 #### Results
 This test shows that the CPU/RAM usage in the local approach is smaller than the using CLARUS because the CLARUS leverages the CPU and RAM of the CSP. Indeed, this is one of the advantages of the CLARUS approach that allows to benefit from the computation of CSP in order to consume less resources in the local devices. CPU, memory, IO and bandwidth usage are reported in the following graphs.
@@ -119,11 +124,13 @@ In order to validate this requirement we will need to use different sized datase
 We performed the test for 3 different data protections: Anonymization, splitting and searchable encryption. The operations taken into account were: storage, retrieval and search.
 
 ####	Usage
-
-    ./launcher postgres clarus dataSets/ehealth/ REQ-NF_PERF-1.4
+```bash
+./launcher postgres clarus dataSets/ehealth/ REQ-NF_PERF-1.4
+````
 
 ####	Validation
 If the processing time is linear compared to the size of the dataset this requirement will be validated.
+
 #### Result
 It was not possible to check the linearity for the storage and retrieval actions since the Xlarge dataset needs more than one day to be uploaded or retrieved. That’s why we, performed the tests with 3 new data sets that are the standard dataset, dataset-2 that is that has the double size of the standard dataset and dataset-3 that has 3 times the size of standard dataset. The results of provided in the following table.
 
