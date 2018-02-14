@@ -20,7 +20,7 @@
 # Last Modified By  : hargathor <3949704+hargathor@users.noreply.github.com>
 alias ll="ls -la --color=auto"
 export PERL_MM_USE_DEFAULT=1
-apt update && apt upgrade -- assume-yes && apt install --assume-yes python3 postgresql-client libcrypt-rijndael-perl libcrypt-cbc-perl gawk sysstat rrdtool gnuplot build-essential libssl-dev
+apt update && apt upgrade --assume-yes && apt install --assume-yes python3 postgresql-client libcrypt-rijndael-perl libcrypt-cbc-perl gawk sysstat rrdtool gnuplot build-essential libssl-dev
 cpan install Crypt::OpenSSL::AES 
 cpan install Date::Calc
 apt install --assume-yes curl && curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && apt install --assume-yes git-lfs && git-lfs install && git-lfs pull

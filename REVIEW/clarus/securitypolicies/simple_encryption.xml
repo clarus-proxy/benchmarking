@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema>
+    <data>
+        <attribute name="patient/pat_id" attribute_type="non_confidential" data_type="categoric"/>
+        <attribute name="patient/pat_name" attribute_type="non_confidential" data_type="categoric"/>
+        <attribute name="patient/pat_last1" attribute_type="identifier" data_type="categoric"/>
+        <attribute name="patient/pat_last2" attribute_type="non_confidential" data_type="categoric"/>
+        <attribute name="patient/pat_gen" attribute_type="non_confidential" data_type="categoric"/>
+        <attribute name="patient/pat_zip" attribute_type="non_confidential" data_type="categoric"/>
+        <attribute name="episode/ep_id" attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="episode/ep_pat" attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="episode/ep_age" attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="episode/ep_range" attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="discharge_report/dis_id" attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="discharge_report/dis_ver" attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="discharge_report/dis_ep" attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="discharge_report/dis_serv" attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="discharge_report/dis_adm" attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="discharge_report/dis_dis" attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="discharge_report/dis_days" attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="discharge_report/dis_adtp" attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="discharge_report/dis_dest" attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="discharge_report/dis_sig1" attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="discharge_report/dis_sig2" attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="discharge_report/dis_pdf" attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="diagnose_cie9mc/dia_id"  attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="diagnose_cie9mc/dia_desc"  attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="document_diagnose/dis_id"  attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="document_diagnose/dis_ver"  attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="document_diagnose/dia_id"  attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="lab_result/lab_id"  attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="lab_result/lab_ver"  attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="lab_result/lab_ep"  attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="lab_result/lab_pdf"  attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="medical_service_loinc/ms_id"  attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="medical_service_loinc/ms_desc"  attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="medical_service_loinc/ms_unit"  attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="medical_service_loinc/ms_ref"  attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="document_ms/lab_id"  attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="document_ms/lab_ver"  attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="document_ms/ms_id"  attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="document_ms/res_val"  attribute_type="non_confidential" data_type="categoric" />
+        <attribute name="document_ms/res_abn"  attribute_type="non_confidential" data_type="categoric" />
+    </data>
+    <protection module="encryption">
+        <attribute_types>
+            <attribute_type type="identifier"
+                protection="encryption" id_key="176" />
+            <attribute_type type="quasi_identifier"
+                protection="null" />
+            <attribute_type type="non_confidential"
+                protection="null" />
+            <attribute_type type="confidential"
+                protection="suppression" />
+        </attribute_types>
+    </protection>
+    <protocol plugin="PostgreSQL" />
+</schema>

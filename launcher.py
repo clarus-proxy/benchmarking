@@ -47,7 +47,8 @@ class Logger(object):
 
 LOG_FILE = "./logs/ehealth.log"
 root_dir = "./network/"
-datasets = ["std", "large", "xlarge"]
+# datasets = ["std", "large", "xlarge"]
+datasets = ["large"]
 sys.stdout = Logger(LOG_FILE)
 parser = argparse.ArgumentParser(
     description='Launch the benchmarks tests for CLARUS')
@@ -152,6 +153,20 @@ def worker_perf(encrypt=False, dataset_size="std", target=args.target):
         print("An exception occured")
         return False
     time.sleep(5)
+
+    return True
+
+
+def worker_review():
+    """TODO: Docstring for worker_review.
+    :returns: TODO
+
+    """
+    start_time = time.time()
+    worker_perf(False, dataset_size="std", target=args.clarus)
+    time2compute = time.time() - start_time
+    print("{}: Time to compute with CLARUS: {}".format(
+        "std", time2compute))
 
     return True
 
@@ -278,10 +293,11 @@ def worker_perf_4():
 
 def worker_perf_5():
     # TODO
-    return True
+    pass
 
 
 def worker_transport_3():
+    # TODO
     # Calling JMETER here
     test_plan = "test_plans/REQ-NF_TRSP-1.3.jmx"
     result_file = "results/REQ-NF_TRSP-1.3.jtl"
@@ -304,7 +320,8 @@ requirement_func = {
     'REQ-NF_PERF-1.3': worker_perf_3,
     'REQ-NF_PERF-1.4': worker_perf_4,
     'REQ-NF_PERF-1.5': worker_perf_5,
-    'REQ-NF_TRSP-1.3': worker_transport_3
+    'REQ-NF_TRSP-1.3': worker_transport_3,
+    'review': worker_review
 }
 
 
